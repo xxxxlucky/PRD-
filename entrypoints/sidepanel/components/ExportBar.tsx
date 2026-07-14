@@ -31,7 +31,7 @@ export const ExportBar: React.FC = () => {
     setExportingWord(true);
     try {
       // Dynamic import — docx is heavy, only load when used
-      const { Document, Packer, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType } = await import('docx');
+      const { Document, Packer, Paragraph, TextRun, HeadingLevel } = await import('docx');
       const { saveAs } = await import('file-saver');
 
       const paragraphs: any[] = [];
@@ -166,31 +166,31 @@ export const ExportBar: React.FC = () => {
   }, [lastAssistantMsg]);
 
   return (
-    <div className="border-t border-gray-200 p-2 bg-gray-50 shrink-0">
-      <div className="flex gap-2 mb-1.5">
+    <div className="border-t border-gray-200 p-2 bg-gray-50 shrink-0 space-y-1.5">
+      <div className="grid grid-cols-3 gap-1.5">
         <button
           onClick={handleDownloadMD}
           disabled={!hasReport}
-          className="flex-1 px-2 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          className="px-2 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
           title="下载 Markdown 文件"
         >
-          📥 MD
+          下载 MD
         </button>
         <button
           onClick={handleDownloadWord}
           disabled={!hasReport || exportingWord}
-          className="flex-1 px-2 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          className="px-2 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
           title="下载 Word 文档"
         >
-          {exportingWord ? '⏳' : '📄'} Word
+          {exportingWord ? '生成中…' : '下载 Word'}
         </button>
         <button
           onClick={handlePrint}
           disabled={!hasReport || printing}
-          className="flex-1 px-2 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-          title="打印或另存为 PDF（在打印对话框中选「另存为 PDF」）"
+          className="px-2 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          title="打印或另存为 PDF"
         >
-          {printing ? '⏳' : '🖨'} PDF
+          {printing ? '打印中…' : '打印 PDF'}
         </button>
       </div>
       <button
@@ -199,7 +199,7 @@ export const ExportBar: React.FC = () => {
         className="w-full px-2 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         title="复制 Markdown 到剪贴板"
       >
-        {copied ? '✅ 已复制!' : '📋 复制到剪贴板'}
+        {copied ? '已复制' : '复制内容'}
       </button>
     </div>
   );

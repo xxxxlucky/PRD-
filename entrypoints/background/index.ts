@@ -172,9 +172,7 @@ export default defineBackground(() => {
           model: config.model || 'claude-sonnet-4-20250514',
           max_tokens: 8192,
           system: systemPrompt,
-          messages: [
-            { role: 'user', content: userPrompt },
-          ],
+          messages,
         }),
         signal: controller.signal,
       });
